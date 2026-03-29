@@ -1,6 +1,6 @@
 ---
 name: medication-safety-advisor
-version: 1.0.0
+version: 1.0.3
 description: "Use this skill when a clinician, pharmacist, or care coordinator needs to check drug-drug interactions, verify formulary coverage tiers, look up dosing guidelines, or flag contraindications for a patient's medication list. Uses the free OpenFDA API and RxNorm — no API key required. Supports single drug lookups, multi-drug interaction checks, allergy cross-checks, and payer formulary tier lookups. DO NOT use for prescribing decisions — this skill assists with safety checks and information only."
 tags: ["healthcare", "pharmacy", "drug-interactions", "formulary", "rxnorm", "openfda", "medications", "safety"]
 author: "optimusprime19"
