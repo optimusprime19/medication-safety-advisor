@@ -32,6 +32,8 @@ This skill checks drug-drug interactions, allergy contraindications, formulary c
 
 > ⚠️ **Clinical Disclaimer:** All output is informational only and must be reviewed by a licensed clinician or pharmacist before any prescribing or dispensing decision.
 
+> 🔒 **Privacy / PHI Warning:** This skill sends drug names and allergy information to public APIs (RxNorm, OpenFDA, DailyMed). **Do not include patient-identifiable information** (names, MRNs, DOBs, addresses, or other PHI) in any query. Use drug names and clinical terms only. For production use with real patient data, ensure your deployment satisfies HIPAA requirements and that a BAA is in place with any third-party service.
+
 ---
 
 ## Trigger Phrases
@@ -126,18 +128,12 @@ Source: OpenFDA + RxNorm | For clinician review only
 ```
 
 **What the agent does:**
-1. Looks up the drug's generic name and drug class
-2. Checks known formulary tier data (built-in reference updated quarterly)
-3. Suggests covered alternatives in the same drug class
+1. Looks up the drug's generic name and drug class via RxNorm
+2. If `FORMULARY_API_KEY` is set: queries the real-time payer formulary API for tier and coverage data
+3. If no key is set: instructs the agent to tell the user to verify tier directly with the payer's online formulary tool — no estimated or cached data is used
+4. Suggests covered alternatives in the same drug class based on RxNorm drug class data
 
-**Built-in formulary reference covers:**
-- BlueCross BlueShield (major plans)
-- Aetna
-- UnitedHealthcare
-- Cigna
-- Medicare Part D (standard formulary)
-
-> Note: Formulary data is updated quarterly. For real-time verification, always confirm with the payer's online formulary tool or call the pharmacy benefit line.
+> Note: Without `FORMULARY_API_KEY`, this skill does **not** provide formulary tier estimates. Always confirm coverage with the payer's online formulary tool or pharmacy benefit line before clinical use.
 
 **Example output:**
 ```
